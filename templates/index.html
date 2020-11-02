@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block body %}
+<style type="text/css">
+
+	.top-section{
+		background-image: url("{{ url_for('static', filename='images/background_vector.svg') }}");
+		background-position: center;
+		background-color: white;
+		background-blend-mode: multiply;
+		background-size: cover;
+	}
+</style>
+
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog rounded-0">
+    <div class="modal-content rounded-0">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Create Wallet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/create" method="POST">
+      <div class="modal-body">
+       
+       	<div class="my-2">
+       		<label>Email</label>
+       		<input class="form-control rounded-0 " type="email" placeholder="name@domain.com" name="r_email" required></input>
+       	</div>
+       	<div class="my-2">
+       		<label>Password</label>
+       		<input class="form-control rounded-0 " type="password" placeholder="password" name="r_password" required></input>
+       	</div>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark rounded-0" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-warning rounded-0">Create Wallet</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<main class="page" style="height: 100vh">
+	<div class="top-section">
+		{% include 'header.html' %}
+		<div class="container border-bottom">
+			<div class="py-5">
+<!-- 				<div >
+					<span class="bg-warning border-bottom font-bold text-bold border-dark p-2">1 PXN = 1.00 USD</span>
+				</div> -->
+				<h1 class="mb-1">PEAXCOIN</h1>
+				<div class="my-3">
+					Peaxcoin uses peer-to-peer technology to operate with no central authority or banks
+				</div>
+				<div>
+					<button class="btn btn-dark px-5 rounded-0 py-2 " data-toggle="modal" data-target="#staticBackdrop">Creat Wallet</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container text-center py-5">
+		<h2 class="pb-3"> <span class="border-bottom border-warning pb-2">ABOUT PEAXCOIN</span> </h2>
+		<div>
+			peaxcoin uses peer-to-peer technology to operate with no central authority or banks; managing transactions and the issuing of bitcoins is carried out collectively by the network. Bitcoin is open-source; its design is public, nobody owns or controls Bitcoin and everyone can take part. Through many of its unique properties, Bitcoin allows exciting uses that could not be covered by any previous payment system.
+		</div>
+		<div class="row mt-3 bg-white shadow-sm border p-2">
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/instant.svg') }}">
+				<div>Fast peer-to-peer transactions</div>
+			</div>
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/main_ico_lowfee.svg') }}">
+				<div>Worldwide payments</div>
+			</div>
+			<div class="col-4">
+				<img src="{{ url_for('static', filename='images/worldwide.svg') }}">
+				<div>Low processing fees</div>
+			</div>
+		</div>
+		<button class="btn btn-dark px-5 rounded-0 py-2 my-3" data-toggle="modal" data-target="#staticBackdrop">Get Started with Pexcoin</button>
+	</div>
+	<footer class="pt-2">
+		<div class="bg-dark p-3 d-flex justify-content-between align-items-center">
+			<div class="text-white">&copy; Peaxcoin Project 2020-2021 Released under the MIT license</div>
+		<div class="text-white">
+			English
+		</div>
+		</div>
+	</footer>
+</main>
+{% endblock %}

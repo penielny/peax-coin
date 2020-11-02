@@ -1,0 +1,29 @@
+<style type="text/css">
+		.header{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+	}
+	.logo-text{
+		color: black;
+		text-decoration: none;
+	}
+	.logo-text:hover{
+		color: black;
+		text-decoration: none;
+	}
+</style>
+<div class="bg-dark text-center text-white p-2">
+	pxn.org need your support!
+</div>
+<div class="bg-white shadow-sm border-button p-3">
+	<div class="header container">
+		<h3 class="">
+			<a href="/" class="logo-text"><span class="fa fa-google-wallet"></span> PXN</a>
+		</h3>
+		<div class="d-flex align-items-center">
+			<div  class="text-dark mr-2" style="font-weight: bold">{{session['account']['tokens']}} PXN</div>
+			<a href="/logout" class="btn btn-outline-dark rounded-0">Logout</a>
+		</div>
+	</div>
+</div>

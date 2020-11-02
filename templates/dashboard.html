@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="modal fade" id="recv_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog rounded-0">
+    <div class="modal-content rounded-0">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Recieve PXN</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+ 
+      <div class="modal-body">
+       <div class="text-center">Payment Address <span class="fa fa-inbox"></span> </div>
+       <div class="text-center px-2 py-1 bg-dark text-white" style="font-weight: bold">{{ session['keys'][-1] }}</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark rounded-0" data-dismiss="modal">Done</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="send_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog rounded-0">
+    <div class="modal-content rounded-0">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Send PXN</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+ 
+      <form action="/send" method="POST">
+      <div class="modal-body">
+       
+       	<div class="my-2">
+       		<label>Reciver Wallet Address</label>
+       		<input class="form-control rounded-0 " type="text" placeholder="97815df35ebe460bb12a529cf8bbc6f8" name="rcv_wallet" required></input>
+       	</div>
+       	<div class="my-2">
+       		<label>Amount (PXN)</label>
+       		<input class="form-control rounded-0 " type="decimal" placeholder="1.00000000" name="pxn_amount" required></input>
+       	</div>
+       <div class="mb-2">
+       	<textarea class="form-control" placeholder="Rype comment here .." rows="2" style="resize: none" name="comment"></textarea>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark rounded-0" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-dark rounded-0 px-5">Send <span class="fa fa-send"></span></button>
+      </div>
+      </form>
+      
+    </div>
+  </div>
+</div>
+
+
+{% include 'my_header.html' %}
+<div class="container">
+	<div class="mt-3">
+		<div class="row">
+			<div class="col-md-4 col-sm-12 border bg-white shadow-sm">
+				<div class="p-3">
+					<div class="my-2">
+						<div> <span class="fa fa-bar-chart"></span> 1 PXN = GHS 1.00</div>
+					</div>
+					<div class="my-2">
+						<h3>Account Balance</h3>
+						<div>
+							<span class="fa fa-google-wallet"></span> {{session['account']['tokens']}} PXN
+						</div>
+					</div>
+					<div class="mt-3">
+						<button class="btn btn-primary"  data-toggle="modal" data-target="#send_modal">Send <span class="fa fa-send"></span> </button>
+						<button class="btn btn-secondary" data-toggle="modal" data-target="#recv_modal">Recieve <span class="fa fa-inbox"></span></button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8 col-sm-12 px-5 d-flex justify-content-center align-items-center">
+				
+			</div>
+		</div>
+	</div>
+	<div class="mt-4">
+		<h3 class="mb-4">
+			<span class="border-bottom border-warning pb-2">Transaction History</span>
+		</h3>
+		{% if tl %}
+		<div class="row">
+			<table class="table table-hover table-light">
+			  <tbody>
+			  	{% for doc in transactions %}
+			    <tr>
+
+			      <td>{% if doc['sender_wallet']==session['keys'][-1] %}<span class="fa fa-long-arrow-up text-danger"></span> {% else %}<span class="fa fa-long-arrow-down text-success"></span> {%endif%}{{doc['token']}} PXN</td>
+			      <td>
+{% if doc['sender_wallet']==session['keys'][-1] %}{{doc['recv_wallet']}} {% else %}{{doc['sender_wallet']}} {%endif%}
+			      </td>
+			      <td>{{doc['confirmation']}}</td>
+			      <td>{{doc['date'].date()}}</td>
+			      <td><span class="fa fa-chevron-circle-down"></span></td>
+			    </tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+		</div>
+		{% else %}
+		<div class="text-center">
+			<div class="text-center">No Transactions</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}
