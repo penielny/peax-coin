@@ -4,6 +4,6 @@
 
     ## Technologies
     - Python
-    - SQL / Mongo Database
+    - Mongo Database
 
 "# peax-coin" 
